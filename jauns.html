@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gaidot dzimšanas dienu</title>
+	<meta charset="UTF-8">
+	<script type="text/javascript">
+		function dienas() {
+			var tagad = new Date();
+			var gads = parseInt(document.getElementById("gads").value);
+			var menesis = parseInt(document.getElementById("menesis").value) - 1; // Jāatņem 1, jo mēneši sākas no 0
+			var datums = parseInt(document.getElementById("datums").value);
+			var dzimsanasDatums = new Date(gads, menesis, datums);
+			dzimsanasDatums.setFullYear(tagad.getFullYear()); // Iestatām gadu, lai aprēķinātu dienu skaitu no šī gada dzimšanas dienas
+			if (dzimsanasDatums < tagad) {
+				dzimsanasDatums.setFullYear(tagad.getFullYear() + 1); // Ja dzimšanas diena jau bija, iestatām nākamgada dzimšanas dienu
+			}
+			var dienasLidzDzimsanasDienai = Math.round((dzimsanasDatums - tagad) / (1000 * 60 * 60 * 24)); // Aprēķinām dienu skaitu līdz dzimšanas dienai
+			document.getElementById("dienas").value = dienasLidzDzimsanasDienai; // Ierakstam dienu skaitu formas laukā
+		}
+	</script>
+</head>
+<body>
+	<h1>Gaidot dzimšanas dienu</h1>
+	<hr>
+	<form>
+		<p>Ievadi pilnu datumu, kad Tev būs tuvākā dzimšanas diena:</p>
+		<label for="gads">gads:</label>
+		<input type="text" id="gads" name="gads"><br>
+		<label for="menesis">mēnesis:</label>
+		<input type="text" id="menesis" name="menesis"><br>
+		<label for="datums">diena:</label>
+		<input type="text" id="datums" name="datums"><br>
+		<button type="button" id="poga" name="poga" value="Aprēķināt dienu skaitu līdz dzimšanas dienai" onclick="dienas();">Aprēķināt</button>
+	</form>
+	<p>Līdz svētkiem atlikušas <input type="text" id="dienas" name="dienas"> dienas  :  ))</p>
+</body>
+</html>
